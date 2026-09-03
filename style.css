@@ -1,0 +1,319 @@
+:root {
+  --saffron: #e0a63a;
+  --deep-red: #b23a2e;
+  --leaf-green: #1f6b38;
+  --cream: #fff4da;
+  --ink: #3a2415;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  font-family: 'Tiro Devanagari Marathi', serif;
+  background: linear-gradient(180deg, #2a0f1f 0%, #4a1626 40%, #7a2a1f 100%);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+.sky {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.glow {
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 900px;
+  background: radial-gradient(circle, rgba(224,166,58,0.25) 0%, rgba(224,166,58,0) 70%);
+}
+
+/* ===================== CLOSED CARD ===================== */
+.closed-card {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.6s ease;
+}
+
+.closed-card.opening {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.closed-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: floaty 4s ease-in-out infinite;
+}
+
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+.leaf {
+  width: 180px;
+  height: auto;
+  filter: drop-shadow(0 12px 24px rgba(0,0,0,0.45));
+}
+
+.coin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 88px;
+  height: 88px;
+}
+
+.coin-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 3px dashed rgba(255, 236, 179, 0.8);
+  animation: spin 12s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.coin-inner {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ffe9a8, var(--saffron) 60%, #a5720f 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.5), inset 0 0 0 4px #fff2c7;
+  animation: pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 6px 18px rgba(0,0,0,0.5), inset 0 0 0 4px #fff2c7, 0 0 0 0 rgba(224,166,58,0.5); }
+  50% { box-shadow: 0 6px 18px rgba(0,0,0,0.5), inset 0 0 0 4px #fff2c7, 0 0 0 16px rgba(224,166,58,0); }
+}
+
+.coin-om {
+  font-size: 40px;
+  color: #6b3a12;
+  font-weight: 700;
+}
+
+.tap-hint {
+  margin-top: 34px;
+  color: #ffe9c2;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  animation: blink 1.8s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+
+.sparkle {
+  position: absolute;
+  color: #ffe08a;
+  font-size: 1.4rem;
+  animation: twinkle 2.4s ease-in-out infinite;
+}
+.s1 { top: 10%; left: -30px; animation-delay: 0s; }
+.s2 { top: 60%; right: -30px; animation-delay: 0.8s; }
+.s3 { bottom: -10%; left: 20%; animation-delay: 1.4s; }
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+/* ===================== OPENED INVITATION ===================== */
+.invite {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px 60px;
+  opacity: 0;
+  animation: fadeUp 1s ease forwards;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.invite-card {
+  width: 100%;
+  max-width: 480px;
+  background: linear-gradient(180deg, #fff8e7 0%, #fdeec4 100%);
+  border-radius: 24px;
+  padding: 28px 26px 34px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+  border: 3px solid var(--saffron);
+  position: relative;
+}
+
+.deco-top, .deco-bottom {
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+  letter-spacing: 2px;
+}
+.deco-bottom { margin-top: 18px; margin-bottom: 0; }
+
+.mantra {
+  font-family: 'Baloo 2', 'Tiro Devanagari Marathi', serif;
+  color: var(--deep-red);
+  font-size: 1.5rem;
+  margin: 6px 0 18px;
+}
+
+.ganpati-frame {
+  width: 190px;
+  margin: 0 auto 14px;
+}
+
+.ganpati-art {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 10px 18px rgba(0,0,0,0.25));
+}
+
+.lead-line {
+  color: var(--deep-red);
+  font-weight: 700;
+  margin: 0 0 10px;
+  font-size: 1.1rem;
+}
+
+.body-text {
+  font-size: 1.02rem;
+  line-height: 1.7;
+  margin: 0 0 16px;
+}
+
+.family-name {
+  font-family: 'Baloo 2', serif;
+  font-size: 1.25rem;
+  color: var(--leaf-green);
+  font-weight: 700;
+  margin: 6px 0 22px;
+}
+
+.dates-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+}
+
+.date-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--deep-red);
+  color: #fff;
+  border-radius: 14px;
+  padding: 10px 16px;
+  min-width: 64px;
+}
+
+.date-num {
+  font-size: 1.7rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.date-label {
+  font-size: 0.78rem;
+  margin-top: 4px;
+  opacity: 0.9;
+}
+
+.date-sep {
+  font-size: 1rem;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.date-month {
+  width: 100%;
+  margin-top: 4px;
+  font-size: 1rem;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.venue-block {
+  text-align: center;
+  border-top: 2px dashed var(--saffron);
+  padding-top: 18px;
+  margin-bottom: 18px;
+}
+
+.venue-block h2 {
+  font-size: 1.05rem;
+  color: var(--deep-red);
+  margin: 0 0 6px;
+}
+
+.venue-block p {
+  margin: 0 0 12px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.map-btn {
+  display: inline-block;
+  background: var(--leaf-green);
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  margin-bottom: 14px;
+  box-shadow: 0 6px 14px rgba(31,107,56,0.35);
+}
+
+.map-embed {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 2px solid var(--saffron);
+}
+
+.closing-line {
+  font-size: 1rem;
+  color: var(--deep-red);
+  font-weight: 600;
+  margin: 0;
+}
+
+@media (max-width: 400px) {
+  .leaf { width: 150px; }
+  .coin, .coin-inner { width: 72px; height: 72px; }
+  .coin-om { font-size: 32px; }
+}
