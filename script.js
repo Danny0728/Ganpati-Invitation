@@ -79,18 +79,36 @@ function playDoorSfx() {
 }
 
 // ---- light-speed "travelling to earth" warp effect ----
+// layered in three depth bands (far/mid/near) so it reads as travelling
+// through space rather than a flat burst of lines
 function startWarp() {
   if (!warp) return;
-  const streakCount = 34;
-  for (let i = 0; i < streakCount; i++) {
-    const s = document.createElement('div');
-    s.className = 'streak';
-    const angle = Math.random() * 360;
-    const delay = Math.random() * 0.25;
-    s.style.setProperty('--ang', angle + 'deg');
-    s.style.setProperty('--sdelay', delay + 's');
-    warp.appendChild(s);
-  }
+  const layers = [
+    { count: 16, dist: -300, scaleEnd: 5, width: 1, dur: 0.95, blur: 0, opacity: 0.55, colors: ['#bcd4ff', '#e8f0ff'] },
+    { count: 14, dist: -460, scaleEnd: 9, width: 2, dur: 0.85, blur: 0, opacity: 0.9, colors: ['#fff3cf', '#ffe9a8'] },
+    { count: 10, dist: -640, scaleEnd: 13, width: 3, dur: 0.72, blur: 0.5, opacity: 1, colors: ['#fff8e0', '#ffd67a'] },
+  ];
+
+  layers.forEach((layer) => {
+    for (let i = 0; i < layer.count; i++) {
+      const s = document.createElement('div');
+      s.className = 'streak';
+      const angle = Math.random() * 360;
+      const delay = Math.random() * 0.28;
+      const color = layer.colors[Math.random() > 0.5 ? 0 : 1];
+      s.style.setProperty('--ang', angle + 'deg');
+      s.style.setProperty('--sdelay', delay + 's');
+      s.style.setProperty('--dist', layer.dist + 'px');
+      s.style.setProperty('--scaleend', layer.scaleEnd);
+      s.style.setProperty('--w', layer.width + 'px');
+      s.style.setProperty('--dur', layer.dur + 's');
+      s.style.setProperty('--blur', layer.blur + 'px');
+      s.style.setProperty('--maxop', layer.opacity);
+      s.style.setProperty('--clr', color);
+      warp.appendChild(s);
+    }
+  });
+
   warp.classList.add('active');
   // trigger the streak-out animation on the next frame
   requestAnimationFrame(() => {
@@ -106,23 +124,45 @@ function startWarp() {
   }, 1300);
 }
 
-// ---- open sequence: door creaks, fades, warps through light-speed, invitation arrives ----
+// ---- replay a flash burst (used for both the door-open flash and the arrival flash) ----
+function triggerFlash(className) {
+  if (!flash) return;
+  flash.classList.remove('fire', 'arrive');
+  // force reflow so the animation restarts even if a class was already applied
+  void flash.offsetWidth;
+  flash.classList.add(className);
+}
+
+// ---- open sequence: door cracks open, punches into the light, warps through
+// light-speed towards earth, then arrives with a second flash ----
 let opened = false;
 function openInvitation() {
   if (opened) return;
   opened = true;
 
   playDoorSfx();
+  // triggers the door's punch-zoom and the crack-of-light seam (see CSS)
   closedCard.classList.add('opening');
-  flash.classList.add('fire');
 
+  // first flash — right as the crack of light is widest, just before the punch-zoom finishes
+  setTimeout(() => {
+    triggerFlash('fire');
+  }, 380);
+
+  // launch into hyperspace as the punch-zoom completes
   setTimeout(() => {
     startWarp();
-  }, 220);
+  }, 650);
 
+  // door is fully behind the flash by now — safe to remove it
   setTimeout(() => {
     closedCard.style.display = 'none';
-  }, 500);
+  }, 720);
+
+  // second flash — arriving at earth, just before the invitation fades in
+  setTimeout(() => {
+    triggerFlash('arrive');
+  }, 1750);
 
   setTimeout(() => {
     // land at the very top of the window, not wherever scrollIntoView would
@@ -132,7 +172,7 @@ function openInvitation() {
     invite.classList.add('reveal');
     window.scrollTo(0, 0);
     startMusic();
-  }, 980);
+  }, 1820);
 }
 
 closedCard.addEventListener('click', openInvitation);
