@@ -125,9 +125,12 @@ function openInvitation() {
   }, 500);
 
   setTimeout(() => {
+    // land at the very top of the window, not wherever scrollIntoView would
+    // resolve mid-way through the invite's zoom-in animation
+    window.scrollTo(0, 0);
     invite.hidden = false;
     invite.classList.add('reveal');
-    invite.scrollIntoView({ behavior: 'instant', block: 'start' });
+    window.scrollTo(0, 0);
     startMusic();
   }, 980);
 }
