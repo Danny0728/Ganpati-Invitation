@@ -196,14 +196,6 @@ html, body {
   to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
-.leaf {
-  width: 132px;
-  height: auto;
-  position: relative;
-  z-index: 2;
-  display: block;
-}
-
 .coin {
   position: absolute;
   top: 50%;
@@ -212,6 +204,19 @@ html, body {
   width: 64px;
   height: 64px;
   z-index: 3;
+}
+
+/* the Om coin is now the sole emblem on the door, so it reads bigger */
+.coin.coin-big {
+  width: 108px;
+  height: 108px;
+}
+.coin-big .coin-inner {
+  width: 108px;
+  height: 108px;
+}
+.coin-big .coin-om {
+  font-size: 52px;
 }
 
 .coin-rays {
@@ -298,12 +303,73 @@ html, body {
   pointer-events: none;
 }
 .flash.fire {
-  animation: flashPop 0.9s ease-out forwards;
+  animation: flashPop 0.5s ease-out forwards;
 }
 @keyframes flashPop {
   0% { opacity: 0; transform: scale(0.3); }
-  35% { opacity: 0.95; transform: scale(1.05); }
+  45% { opacity: 0.95; transform: scale(1.05); }
   100% { opacity: 0; transform: scale(1.6); }
+}
+
+/* "travelling at light speed to earth" hyperspace transition */
+.warp {
+  position: fixed;
+  inset: 0;
+  z-index: 6;
+  background: #000;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.warp.active {
+  animation: warpBg 1.15s ease forwards;
+}
+@keyframes warpBg {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  78% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.streak {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 40px;
+  background: linear-gradient(to top, transparent, #fff3cf 60%, #ffe9a8 85%, transparent);
+  border-radius: 2px;
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(var(--ang, 0deg)) translateY(0) scaleY(0.3);
+}
+.streak.go {
+  animation: streakOut 0.85s cubic-bezier(.16,.6,.2,1) forwards;
+  animation-delay: var(--sdelay, 0s);
+}
+@keyframes streakOut {
+  0%   { opacity: 0; transform: translate(-50%, -50%) rotate(var(--ang, 0deg)) translateY(0) scaleY(0.3); }
+  15%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -50%) rotate(var(--ang, 0deg)) translateY(-480px) scaleY(9); }
+}
+
+.warp-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, #fff8e0 0%, #ffd67a 45%, rgba(255,214,122,0) 75%);
+  opacity: 0;
+}
+.warp.active .warp-core {
+  animation: warpCore 1.15s ease forwards;
+}
+@keyframes warpCore {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
+  20% { opacity: 1; transform: translate(-50%, -50%) scale(1.3); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(3.2); }
 }
 
 /* ===================== OPENED INVITATION ===================== */
@@ -319,12 +385,14 @@ html, body {
 }
 
 .invite.reveal {
-  animation: fadeUp 1.1s cubic-bezier(.2,.8,.25,1) forwards;
+  animation: arriveZoom 1s cubic-bezier(.2,.7,.25,1) forwards;
 }
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(36px) scale(0.97); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+/* arriving at earth after the light-speed jump */
+@keyframes arriveZoom {
+  0%   { opacity: 0; transform: scale(0.2); filter: blur(14px); }
+  55%  { opacity: 1; filter: blur(0); }
+  100% { opacity: 1; transform: scale(1); filter: blur(0); }
 }
 
 .invite-card {
@@ -473,49 +541,93 @@ html, body {
   font-size: 1rem;
 }
 
-.dates-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 24px;
-  flex-wrap: wrap;
+.timeline {
+  text-align: left;
+  margin-bottom: 26px;
 }
 
-.date-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: linear-gradient(160deg, #c9962f 0%, #9a6f22 100%);
-  color: #2a1a06;
-  border-radius: 14px;
-  padding: 12px 18px;
-  min-width: 66px;
-  box-shadow: 0 8px 18px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,243,207,0.5);
-}
-
-.date-num {
+.timeline-title {
   font-family: 'Yatra One', serif;
-  font-size: 1.85rem;
-  line-height: 1;
+  font-weight: 400;
+  font-size: 1.15rem;
+  color: #e0b25a;
+  margin: 0 0 2px;
+  text-align: center;
 }
 
-.date-label {
-  font-size: 0.8rem;
-  margin-top: 5px;
-  opacity: 0.85;
-}
-
-.date-sep { display: flex; align-items: center; }
-.date-sep svg path { stroke: #e0b25a; }
-
-.date-month {
-  width: 100%;
-  margin-top: 6px;
-  font-size: 1.05rem;
+.tl-month {
+  text-align: center;
+  font-size: 0.95rem;
   color: #f3d896;
   font-weight: 600;
   letter-spacing: 0.3px;
+  margin-bottom: 16px;
+}
+
+.tl-item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding-left: 6px;
+  padding-bottom: 18px;
+}
+.tl-item::before {
+  content: "";
+  position: absolute;
+  left: 15px;
+  top: 22px;
+  bottom: -2px;
+  width: 1px;
+  background: linear-gradient(180deg, rgba(224,178,90,0.6), rgba(224,178,90,0.15));
+}
+.tl-item:last-child::before { display: none; }
+.tl-item:last-child { padding-bottom: 0; }
+
+.tl-dot {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(160deg, #c9962f 0%, #9a6f22 100%);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,243,207,0.5);
+  z-index: 1;
+}
+
+.tl-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+  padding-top: 4px;
+}
+
+.tl-date {
+  font-family: 'Yatra One', serif;
+  font-size: 1.15rem;
+  color: #f3d896;
+  min-width: 30px;
+}
+
+.tl-event {
+  font-size: 1rem;
+  color: #d9e5dc;
+}
+
+.tl-note {
+  flex-basis: 100%;
+  font-size: 0.88rem;
+  color: #6fbf7f;
+  font-weight: 600;
+}
+
+.tl-item.highlight .tl-dot {
+  background: linear-gradient(160deg, #3fae63 0%, #1f6b38 100%);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.4), 0 0 0 4px rgba(63,174,99,0.25);
+}
+.tl-item.highlight .tl-event {
+  color: #fff3cf;
+  font-weight: 700;
 }
 
 .venue-block {
@@ -581,10 +693,40 @@ html, body {
   line-height: 1.6;
 }
 
+.memory-block {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(224,178,90,0.4);
+  text-align: center;
+}
+
+.memory-block h2 {
+  font-family: 'Yatra One', serif;
+  font-weight: 400;
+  font-size: 1.05rem;
+  color: #e0b25a;
+  margin: 0 0 12px;
+}
+
+.memory-frame {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 2px solid #e0b25a;
+  box-shadow: 0 14px 30px rgba(0,0,0,0.4);
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.memory-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 @media (max-width: 400px) {
-  .leaf { width: 155px; }
-  .coin, .coin-inner { width: 76px; height: 76px; }
-  .coin-om { font-size: 34px; }
+  .coin-big { width: 92px; height: 92px; }
+  .coin-big .coin-inner { width: 92px; height: 92px; }
+  .coin-big .coin-om { font-size: 44px; }
   .ganpati-stage { width: 185px; }
   .hero-title { font-size: clamp(2rem, 12vw, 2.8rem); }
 }

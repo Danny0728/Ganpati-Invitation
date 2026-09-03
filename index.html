@@ -105,36 +105,12 @@
       </g>
     </svg>
 
-    <!-- leaf + coin emblem, centred exactly on the door -->
+    <!-- gold Om symbol, centred exactly on the door -->
     <div class="leaf-coin-wrap">
       <div class="mandala-ring"></div>
       <div class="mandala-ring ring2"></div>
 
-      <svg class="leaf" viewBox="0 0 220 300" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#3fae63"/>
-            <stop offset="50%" stop-color="#1f6b38"/>
-            <stop offset="100%" stop-color="#0e3a1e"/>
-          </linearGradient>
-          <filter id="leafShadow" x="-50%" y="-50%" width="200%" height="200%">
-            <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#000" flood-opacity="0.5"/>
-          </filter>
-        </defs>
-        <g filter="url(#leafShadow)">
-          <path d="M110 8 C170 30 208 90 208 152 C208 226 165 285 110 292 C55 285 12 226 12 152 C12 90 50 30 110 8 Z"
-                fill="url(#leafGrad)" stroke="#ffe9a8" stroke-width="1.5" stroke-opacity="0.5"/>
-          <path d="M110 20 L110 280" stroke="#ffe9a8" stroke-width="1.5" fill="none" opacity="0.35"/>
-          <path d="M110 60 C140 75 158 95 168 118" stroke="#ffe9a8" stroke-width="1" fill="none" opacity="0.3"/>
-          <path d="M110 60 C80 75 62 95 52 118" stroke="#ffe9a8" stroke-width="1" fill="none" opacity="0.3"/>
-          <path d="M110 120 C145 136 165 158 176 184" stroke="#ffe9a8" stroke-width="1" fill="none" opacity="0.3"/>
-          <path d="M110 120 C75 136 55 158 44 184" stroke="#ffe9a8" stroke-width="1" fill="none" opacity="0.3"/>
-          <path d="M110 190 C138 203 154 220 162 240" stroke="#ffe9a8" stroke-width="1" fill="none" opacity="0.3"/>
-          <path d="M110 190 C82 203 66 220 58 240" stroke="#ffe9a8" stroke-width="1" fill="none" opacity="0.3"/>
-        </g>
-      </svg>
-
-      <div class="coin">
+      <div class="coin coin-big">
         <div class="coin-rays"></div>
         <div class="coin-ring"></div>
         <div class="coin-inner">
@@ -154,6 +130,11 @@
 
 <!-- flash overlay for cinematic reveal -->
 <div class="flash" id="flash"></div>
+
+<!-- light-speed "travelling to earth" warp transition -->
+<div class="warp" id="warp">
+  <div class="warp-core"></div>
+</div>
 
 <!-- ===================== OPENED INVITATION ===================== -->
 <main id="invite" class="invite" hidden>
@@ -242,8 +223,8 @@
           <path d="M110 96 L105 106 L115 106 Z" fill="#a3271c"/>
         </g>
 
-        <!-- drop assets/ganpati.png here for your own Canva photo; it will auto-cover the fallback above -->
-        <image id="ganpatiPhoto" clip-path="url(#archClip)" href="assets/ganpati.png" x="18" y="16" width="184" height="242" preserveAspectRatio="xMidYMid slice" style="display:none;"/>
+        <!-- current year's Ganpati photo, auto-covers the drawn fallback above -->
+        <image id="ganpatiPhoto" clip-path="url(#archClip)" href="assets/ganpati-current.jpg" x="18" y="16" width="184" height="242" preserveAspectRatio="xMidYMid slice" style="display:none;"/>
 
         <!-- arch outline + finial -->
         <path d="M18 258 L18 108 Q18 16 110 16 Q202 16 202 108 L202 258" fill="none" stroke="url(#archGold)" stroke-width="3.5"/>
@@ -268,19 +249,53 @@
       <span class="fn-flourish">✦</span> ढोले कुटुंबीय <span class="fn-flourish">✦</span>
     </div>
 
-    <div class="dates-row">
-      <div class="date-box">
-        <span class="date-num">१४</span>
-        <span class="date-label">आगमन</span>
+    <div class="timeline">
+      <h2 class="timeline-title">॥ कार्यक्रमाचे दिवस ॥</h2>
+      <div class="tl-month">सप्टेंबर २०२६</div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <span class="tl-date">१४</span>
+          <span class="tl-event">गणपती स्थापना</span>
+        </div>
       </div>
-      <div class="date-sep">
-        <svg viewBox="0 0 40 20" width="40" height="20"><path d="M0 10 H40 M30 3 L40 10 L30 17" stroke="#c9962f" stroke-width="2" fill="none"/></svg>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <span class="tl-date">१५</span>
+          <span class="tl-event">सत्यनारायण पूजा</span>
+        </div>
       </div>
-      <div class="date-box">
-        <span class="date-num">१६</span>
-        <span class="date-label">विसर्जन</span>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <span class="tl-date">१७</span>
+          <span class="tl-event">गौरी आवाहन</span>
+        </div>
       </div>
-      <div class="date-month">सप्टेंबर २०२६</div>
+      <div class="tl-item highlight">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <span class="tl-date">१८</span>
+          <span class="tl-event">गौरी पूजन</span>
+          <span class="tl-note">या दिवशी दर्शनासाठी सहर्ष आमंत्रण 🙏</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <span class="tl-date">१९</span>
+          <span class="tl-event">गौरी विसर्जन</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <span class="tl-date">२०</span>
+          <span class="tl-event">बाप्पाचे विसर्जन</span>
+        </div>
+      </div>
     </div>
 
     <div class="venue-block">
@@ -300,6 +315,13 @@
 
     <p class="closing-line">आपल्या उपस्थितीने या मंगल प्रसंगाची शोभा वाढवावी 🙏</p>
 
+    <div class="memory-block">
+      <h2>॥ मागील वर्षीचा सोहळा ॥</h2>
+      <div class="memory-frame">
+        <img src="assets/ganpati-previous.jpg" alt="मागील वर्षीचा गणपती उत्सव">
+      </div>
+    </div>
+
     <div class="garland garland-bottom" aria-hidden="true">
       <svg viewBox="0 0 460 46" width="100%" height="46" preserveAspectRatio="none">
         <path d="M0 40 Q57.5 0 115 40 T230 40 T345 40 T460 40" stroke="#3f7d3a" stroke-width="3" fill="none"/>
@@ -314,7 +336,10 @@
   </div>
 </main>
 
-<!-- Background music: replace assets/song.mp3 with your track. Starts when the leaf/coin is tapped. -->
+<!-- Door creak sound effect: add assets/door-creak.mp3 to activate. Plays the instant the door is tapped. -->
+<audio id="doorSfx" src="assets/door-creak.mp3" preload="none"></audio>
+
+<!-- Background music: replace assets/song.mp3 with your track. Starts right after the door-opening transition. -->
 <audio id="bgm" src="assets/song.mp3" loop preload="none"></audio>
 
 <script src="script.js"></script>
