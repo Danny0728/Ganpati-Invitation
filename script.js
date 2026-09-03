@@ -58,6 +58,12 @@ function startMusic() {
   });
 }
 
+// try to start the music the instant the very first (closed-door) screen is
+// shown; most browsers block this until a user gesture, so it will usually
+// only actually start once the door is tapped — see startMusic() call at the
+// top of openInvitation() below, which is the reliable trigger
+startMusic();
+
 if (muteBtn) {
   muteBtn.addEventListener('click', (e) => {
     e.stopPropagation();
@@ -141,6 +147,9 @@ function openInvitation() {
   opened = true;
 
   playDoorSfx();
+  // this tap is the first real user gesture, so it's the reliable place
+  // to start the background song (browsers block autoplay before this)
+  startMusic();
   // triggers the door's punch-zoom and the crack-of-light seam (see CSS)
   closedCard.classList.add('opening');
 
