@@ -114,14 +114,21 @@ html, body {
 
 /* ===================== CLOSED CARD ===================== */
 .closed-card {
-  position: relative;
+  position: fixed;
+  inset: 0;
   z-index: 2;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  overflow: hidden;
   transition: opacity 0.5s ease 0.35s, visibility 0.5s ease 0.35s;
+}
+
+/* the browser's own [hidden] behaviour must always win over any later rule */
+[hidden] {
+  display: none !important;
 }
 
 .closed-card.opening {
