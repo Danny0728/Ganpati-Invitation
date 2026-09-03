@@ -304,23 +304,23 @@ html, body {
   width: 100%;
   max-width: 500px;
   background:
-    radial-gradient(circle at 50% 0%, rgba(255,233,168,0.5) 0%, rgba(255,233,168,0) 55%),
-    linear-gradient(180deg, #fffaf0 0%, #fbecc7 100%);
+    radial-gradient(ellipse 380px 260px at 50% 0%, rgba(224,178,90,0.16) 0%, rgba(224,178,90,0) 60%),
+    linear-gradient(180deg, #123521 0%, #0c2617 55%, #081b10 100%);
   border-radius: 20px;
-  padding: 30px 28px 36px;
+  padding: 34px 26px 38px;
   text-align: center;
   box-shadow:
-    0 30px 80px rgba(0,0,0,0.55),
-    0 0 0 1px rgba(201,150,47,0.4),
-    0 0 60px rgba(255,214,122,0.12);
-  border: 1px solid var(--saffron);
+    0 30px 80px rgba(0,0,0,0.6),
+    0 0 0 1px rgba(224,178,90,0.5),
+    0 0 70px rgba(224,178,90,0.1);
+  border: 1px solid #3a5c47;
 }
 
 .corner {
   position: absolute;
   width: 44px;
   height: 44px;
-  opacity: 0.8;
+  opacity: 0.85;
 }
 .corner-tl { top: 10px; left: 10px; }
 .corner-tr { top: 10px; right: 10px; transform: scaleX(-1); }
@@ -335,41 +335,89 @@ html, body {
   transform: scaleY(-1);
 }
 
-.mantra {
+.mute-btn {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(224,178,90,0.6);
+  background: linear-gradient(160deg, #17402a 0%, #0c2617 100%);
+  color: #f3d896;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+  z-index: 4;
+}
+
+.hero-title {
   font-family: 'Yatra One', serif;
-  color: var(--deep-red);
-  font-size: 1.55rem;
-  margin: 6px 0 12px;
+  font-weight: 400;
+  font-size: clamp(2.4rem, 11vw, 3.4rem);
+  line-height: 1.05;
+  margin: 4px 0 6px;
+  letter-spacing: 0.5px;
+  background: linear-gradient(100deg, #c9962f 10%, #fff3cf 35%, #e0b25a 55%, #fff3cf 75%, #c9962f 92%);
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 5s linear infinite;
+  text-shadow: 0 2px 24px rgba(224,178,90,0.25);
+}
+
+.hero-sub {
+  font-family: 'Yatra One', serif;
+  color: #cfa85e;
+  font-size: 1.05rem;
+  margin: 0 0 18px;
   letter-spacing: 0.5px;
 }
 
 .ganpati-stage {
   position: relative;
-  width: 210px;
-  margin: 0 auto 12px;
+  width: 220px;
+  margin: 4px auto 14px;
 }
 
-.ganpati-glow {
+.ganpati-sunburst {
   position: absolute;
-  inset: -20px;
-  background: radial-gradient(circle, rgba(255,209,110,0.55) 0%, rgba(255,209,110,0) 70%);
+  top: 44%;
+  left: 50%;
+  width: 320px;
+  height: 320px;
+  transform: translate(-50%, -50%);
+  background: repeating-conic-gradient(rgba(224,178,90,0.16) 0deg 3deg, transparent 3deg 15deg);
+  border-radius: 50%;
   z-index: 0;
-  animation: orbPulse 5s ease-in-out infinite;
+  animation: spinSlow 50s linear infinite;
 }
 
-.ganpati-art {
+.arch-frame {
   position: relative;
   z-index: 1;
   width: 100%;
   height: auto;
-  filter: drop-shadow(0 14px 22px rgba(0,0,0,0.3));
+  filter: drop-shadow(0 16px 26px rgba(0,0,0,0.45));
+}
+
+.ganpati-clouds {
+  position: relative;
+  z-index: 2;
+  width: 92%;
+  margin: -14px auto 0;
+  opacity: 0.95;
 }
 
 .lead-line {
   font-family: 'Yatra One', serif;
-  color: var(--deep-red);
+  color: #e0b25a;
   font-weight: 400;
-  margin: 0 0 10px;
+  margin: 6px 0 12px;
   font-size: 1.3rem;
   letter-spacing: 0.5px;
 }
@@ -378,13 +426,13 @@ html, body {
   font-size: 1.04rem;
   line-height: 1.75;
   margin: 0 0 16px;
-  color: #4a2c17;
+  color: #d9e5dc;
 }
 
 .family-name {
   font-family: 'Yatra One', serif;
   font-size: 1.4rem;
-  color: var(--leaf-green);
+  color: #6fbf7f;
   font-weight: 400;
   margin: 6px 0 24px;
   display: flex;
@@ -393,7 +441,7 @@ html, body {
   gap: 10px;
 }
 .fn-flourish {
-  color: var(--saffron);
+  color: #e0b25a;
   font-size: 1rem;
 }
 
@@ -410,12 +458,12 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(160deg, #a53a24 0%, #7c2818 100%);
-  color: #fff5df;
+  background: linear-gradient(160deg, #c9962f 0%, #9a6f22 100%);
+  color: #2a1a06;
   border-radius: 14px;
   padding: 12px 18px;
   min-width: 66px;
-  box-shadow: 0 8px 18px rgba(122,40,24,0.35), inset 0 0 0 1px rgba(255,233,168,0.35);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,243,207,0.5);
 }
 
 .date-num {
@@ -427,23 +475,24 @@ html, body {
 .date-label {
   font-size: 0.8rem;
   margin-top: 5px;
-  opacity: 0.95;
+  opacity: 0.85;
 }
 
 .date-sep { display: flex; align-items: center; }
+.date-sep svg path { stroke: #e0b25a; }
 
 .date-month {
   width: 100%;
   margin-top: 6px;
   font-size: 1.05rem;
-  color: var(--ink);
+  color: #f3d896;
   font-weight: 600;
   letter-spacing: 0.3px;
 }
 
 .venue-block {
   text-align: center;
-  border-top: 1px solid rgba(201,150,47,0.5);
+  border-top: 1px solid rgba(224,178,90,0.4);
   padding-top: 20px;
   margin-bottom: 18px;
   position: relative;
@@ -456,7 +505,7 @@ html, body {
   transform: translateX(-50%);
   width: 60px;
   height: 3px;
-  background: var(--saffron);
+  background: #e0b25a;
   border-radius: 3px;
 }
 
@@ -464,7 +513,7 @@ html, body {
   font-family: 'Yatra One', serif;
   font-weight: 400;
   font-size: 1.15rem;
-  color: var(--deep-red);
+  color: #e0b25a;
   margin: 10px 0 8px;
 }
 
@@ -472,12 +521,12 @@ html, body {
   margin: 0 0 14px;
   font-size: 1.02rem;
   line-height: 1.55;
-  color: #4a2c17;
+  color: #d9e5dc;
 }
 
 .map-btn {
   display: inline-block;
-  background: linear-gradient(160deg, #2f8f4e 0%, #1f6b38 100%);
+  background: linear-gradient(160deg, #3fae63 0%, #256b3c 100%);
   color: #fff;
   text-decoration: none;
   padding: 11px 22px;
@@ -485,20 +534,20 @@ html, body {
   font-size: 0.95rem;
   font-weight: 600;
   margin-bottom: 16px;
-  box-shadow: 0 8px 18px rgba(31,107,56,0.4);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.4);
   letter-spacing: 0.3px;
 }
 
 .map-embed {
   border-radius: 16px;
   overflow: hidden;
-  border: 2px solid var(--saffron);
-  box-shadow: 0 10px 24px rgba(0,0,0,0.2);
+  border: 2px solid #e0b25a;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.35);
 }
 
 .closing-line {
   font-size: 1.02rem;
-  color: var(--deep-red);
+  color: #e0b25a;
   font-weight: 600;
   margin: 0;
   line-height: 1.6;
@@ -508,6 +557,6 @@ html, body {
   .leaf { width: 155px; }
   .coin, .coin-inner { width: 76px; height: 76px; }
   .coin-om { font-size: 34px; }
-  .ganpati-stage { width: 175px; }
-  .mantra { font-size: 1.3rem; }
+  .ganpati-stage { width: 185px; }
+  .hero-title { font-size: clamp(2rem, 12vw, 2.8rem); }
 }

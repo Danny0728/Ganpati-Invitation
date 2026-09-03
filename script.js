@@ -2,6 +2,10 @@ const closedCard = document.getElementById('closedCard');
 const invite = document.getElementById('invite');
 const flash = document.getElementById('flash');
 const petalsContainer = document.getElementById('petals');
+const bgm = document.getElementById('bgm');
+const muteBtn = document.getElementById('muteBtn');
+const ganpatiPhoto = document.getElementById('ganpatiPhoto');
+const ganpatiFallback = document.getElementById('ganpatiFallback');
 
 // ---- generate ambient falling petals ----
 function spawnPetals(count) {
@@ -26,7 +30,43 @@ function spawnPetals(count) {
 }
 spawnPetals(22);
 
-// ---- open sequence: doors slide, golden flash, invitation reveals ----
+// ---- if a real assets/ganpati.png has been dropped in, show it instead of the drawn fallback ----
+if (ganpatiPhoto) {
+  const probe = new Image();
+  probe.onload = () => {
+    ganpatiPhoto.style.display = 'block';
+    if (ganpatiFallback) ganpatiFallback.style.display = 'none';
+  };
+  probe.onerror = () => {
+    // no photo provided yet — keep the drawn fallback artwork visible
+  };
+  probe.src = 'assets/ganpati.png';
+}
+
+// ---- background music: starts the moment the leaf/coin is tapped ----
+let musicStarted = false;
+let muted = false;
+
+function startMusic() {
+  if (!bgm || musicStarted) return;
+  musicStarted = true;
+  bgm.volume = 0.75;
+  bgm.play().catch(() => {
+    // autoplay was blocked or assets/song.mp3 hasn't been added yet — silently ignore
+  });
+}
+
+if (muteBtn) {
+  muteBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (!bgm) return;
+    muted = !muted;
+    bgm.muted = muted;
+    muteBtn.textContent = muted ? '🔇' : '🔊';
+  });
+}
+
+// ---- open sequence: golden flash, invitation reveals, music starts ----
 let opened = false;
 function openInvitation() {
   if (opened) return;
@@ -34,6 +74,7 @@ function openInvitation() {
 
   closedCard.classList.add('opening');
   flash.classList.add('fire');
+  startMusic();
 
   setTimeout(() => {
     closedCard.style.display = 'none';

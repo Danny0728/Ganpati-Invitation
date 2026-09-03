@@ -1,43 +1,52 @@
 # Ganpati Aagman Invitation — ढोले कुटुंब
 
 An interactive Ganesh Chaturthi invitation website. The visitor sees a closed
-green-leaf-and-coin card first; clicking/tapping it opens to reveal the
-invitation with Ganpati artwork, dates, and venue (with an embedded Google
-Map).
+green-leaf-and-coin card first; tapping it opens (with a golden flash) to
+reveal the invitation — a "बाप्पाचे आगमन" title, an arched golden frame
+around Ganpati artwork, dates, venue with an embedded Google Map, and
+background music that starts on tap.
 
 ## Files
 
 - `index.html` — page structure and content (all text in Marathi)
 - `style.css` — styling and animations
-- `script.js` — click-to-open interaction
-- `assets/` — put your Canva-exported images here (see below)
+- `script.js` — open interaction, falling petals, music, photo auto-swap
+- `assets/` — put your song and/or Canva-exported photo here (see below)
 
-## Using your own Canva design
+## Adding the background song
 
-Right now the closed card (leaf + coin) is drawn with CSS/SVG, and the
-opened invitation uses a simple placeholder SVG illustration of Ganpati.
+1. Save your track as `assets/song.mp3` (exactly that name/path).
+2. That's it — `script.js` already points `<audio id="bgm">` at
+   `assets/song.mp3` and calls `.play()` the moment the leaf/coin is tapped.
+   It loops automatically. If the file is missing, the site just stays
+   silent (no error shown to visitors).
+3. There's also a small 🔊 mute button in the top-right corner of the
+   opened invitation card, wired up already.
 
-To swap in your Canva-exported artwork:
+Note: some mobile browsers block audio from starting without a direct user
+tap — since playback is triggered from the leaf-tap click handler itself,
+this should satisfy that requirement in all major browsers.
 
-1. Export your Canva design(s) as PNG (transparent background works best).
-2. Save them into the `assets/` folder, e.g. `assets/ganpati.png` and/or
-   `assets/leaf-coin.png`.
-3. In `index.html`:
-   - To replace the Ganpati illustration, find the `<svg class="ganpati-art">`
-     block inside `<div class="ganpati-frame">` and replace it with:
-     `<img src="assets/ganpati.png" alt="श्री गणपती बाप्पा">`
-   - To replace the closed-card leaf+coin graphic, find `<div class="closed-wrap">`
-     and swap the `<svg class="leaf">` and `.coin` block for:
-     `<img src="assets/leaf-coin.png" alt="निमंत्रण" class="leaf-coin-img">`
-     (add a matching CSS rule sizing `.leaf-coin-img` if needed).
+## Using your own Ganpati photo (from Canva)
+
+Right now the arch shows a hand-drawn placeholder illustration of Ganpati.
+
+1. Export your Canva design as a PNG (a square or portrait crop works best;
+   it gets cropped into the arch shape automatically).
+2. Save it as `assets/ganpati.png` (exactly that name/path).
+3. That's it — `script.js` automatically detects the file and swaps the
+   drawn placeholder for your photo inside the same gold arch frame. No
+   HTML/CSS edits needed.
 
 ## Editing details
 
+- **Title**: "बाप्पाचे आगमन" — edit `.hero-title` text in `index.html`.
 - **Family name / text**: edit the Marathi text directly in `index.html`.
-- **Dates**: currently शो 14–16 September 2026, in `.dates-row`.
-- **Venue / map**: address text is in `.venue-block`; the map uses a Google
-  Maps embed URL built from the address — update the `query=` parameter in
-  the `iframe src` and the `href` on `.map-btn` if the address changes.
+- **Dates**: currently 14–16 September 2026, in `.dates-row`.
+- **Venue / map**: address text is in `.venue-block`; the "दिशादर्शन उघडा"
+  button links to the actual Google Maps share link; the embedded map
+  preview (`iframe`) uses a text-address query — update both if the venue
+  changes.
 
 ## Deploying with GitHub Pages
 
