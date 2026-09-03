@@ -26,50 +26,130 @@
   <div class="petals" id="petals"></div>
 </div>
 
-<!-- ===================== CLOSED CARD (leaf + coin) ===================== -->
+<!-- ===================== CLOSED CARD (castle door + leaf/coin) ===================== -->
 <section id="closedCard" class="closed-card" role="button" tabindex="0" aria-label="निमंत्रण उघडण्यासाठी स्पर्श करा">
-  <div class="closed-wrap">
-    <div class="mandala-ring"></div>
-    <div class="mandala-ring ring2"></div>
 
-    <svg class="leaf" viewBox="0 0 220 300" xmlns="http://www.w3.org/2000/svg">
+  <div class="door-scene">
+
+    <!-- big stone-arch castle door -->
+    <svg class="castle-door" viewBox="0 0 320 600" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#3fae63"/>
-          <stop offset="50%" stop-color="#1f6b38"/>
-          <stop offset="100%" stop-color="#0e3a1e"/>
+        <linearGradient id="stoneGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#5c5248"/>
+          <stop offset="100%" stop-color="#2f2a24"/>
         </linearGradient>
-        <filter id="leafShadow" x="-50%" y="-50%" width="200%" height="200%">
-          <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#000" flood-opacity="0.5"/>
+        <linearGradient id="woodGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#3a2412"/>
+          <stop offset="50%" stop-color="#5c3a1e"/>
+          <stop offset="100%" stop-color="#3a2412"/>
+        </linearGradient>
+        <linearGradient id="ironGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#8a7a5f"/>
+          <stop offset="100%" stop-color="#4a3f2c"/>
+        </linearGradient>
+        <filter id="doorShadow" x="-30%" y="-30%" width="160%" height="160%">
+          <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#000" flood-opacity="0.6"/>
         </filter>
       </defs>
-      <g filter="url(#leafShadow)">
-        <path d="M110 8 C170 30 208 90 208 152 C208 226 165 285 110 292 C55 285 12 226 12 152 C12 90 50 30 110 8 Z"
-              fill="url(#leafGrad)" stroke="#ffe9a8" stroke-width="1.5" stroke-opacity="0.5"/>
-        <path d="M110 20 L110 280" stroke="#ffe9a8" stroke-width="1.5" fill="none" opacity="0.35"/>
-        <path d="M110 60 C140 75 158 95 168 118" stroke="#ffe9a8" stroke-width="1" fill="none" opacity="0.3"/>
-        <path d="M110 60 C80 75 62 95 52 118" stroke="#ffe9a8" stroke-width="1" fill="none" opacity="0.3"/>
-        <path d="M110 120 C145 136 165 158 176 184" stroke="#ffe9a8" stroke-width="1" fill="none" opacity="0.3"/>
-        <path d="M110 120 C75 136 55 158 44 184" stroke="#ffe9a8" stroke-width="1" fill="none" opacity="0.3"/>
-        <path d="M110 190 C138 203 154 220 162 240" stroke="#ffe9a8" stroke-width="1" fill="none" opacity="0.3"/>
-        <path d="M110 190 C82 203 66 220 58 240" stroke="#ffe9a8" stroke-width="1" fill="none" opacity="0.3"/>
+
+      <g filter="url(#doorShadow)">
+        <!-- stone archway frame -->
+        <path d="M4 596 L4 220 Q4 20 160 12 Q316 20 316 220 L316 596 Z"
+              fill="url(#stoneGrad)" stroke="#1c1712" stroke-width="3"/>
+        <path d="M4 596 L4 220 Q4 20 160 12 Q316 20 316 220 L316 596"
+              fill="none" stroke="#8a7a5f" stroke-width="1" opacity="0.4"/>
+        <!-- stone block seams -->
+        <g stroke="#1c1712" stroke-width="1.5" opacity="0.35" fill="none">
+          <path d="M4 100 Q160 88 316 100"/>
+          <path d="M4 180 Q160 168 316 180"/>
+          <path d="M4 320 L316 320"/>
+          <path d="M4 420 L316 420"/>
+          <path d="M4 520 L316 520"/>
+        </g>
+
+        <!-- wooden door leaves, inset within stone frame -->
+        <path d="M26 588 L26 224 Q26 50 160 40 Q294 50 294 224 L294 588 Z" fill="url(#woodGrad)" stroke="#1c1207" stroke-width="2"/>
+        <!-- center split -->
+        <line x1="160" y1="42" x2="160" y2="588" stroke="#1c1207" stroke-width="3" opacity="0.6"/>
+
+        <!-- wood plank lines -->
+        <g stroke="#1c1207" stroke-width="1" opacity="0.35">
+          <line x1="60" y1="60" x2="60" y2="586"/>
+          <line x1="94" y1="52" x2="94" y2="586"/>
+          <line x1="128" y1="44" x2="128" y2="586"/>
+          <line x1="192" y1="44" x2="192" y2="586"/>
+          <line x1="226" y1="52" x2="226" y2="586"/>
+          <line x1="260" y1="60" x2="260" y2="586"/>
+        </g>
+
+        <!-- iron cross bands with rivets -->
+        <g>
+          <rect x="26" y="150" width="268" height="16" fill="url(#ironGrad)" stroke="#1c1712" stroke-width="1"/>
+          <rect x="26" y="470" width="268" height="16" fill="url(#ironGrad)" stroke="#1c1712" stroke-width="1"/>
+          <g fill="#d8cba3">
+            <circle cx="40" cy="158" r="3.5"/><circle cx="90" cy="158" r="3.5"/><circle cx="130" cy="158" r="3.5"/>
+            <circle cx="190" cy="158" r="3.5"/><circle cx="230" cy="158" r="3.5"/><circle cx="280" cy="158" r="3.5"/>
+            <circle cx="40" cy="478" r="3.5"/><circle cx="90" cy="478" r="3.5"/><circle cx="130" cy="478" r="3.5"/>
+            <circle cx="190" cy="478" r="3.5"/><circle cx="230" cy="478" r="3.5"/><circle cx="280" cy="478" r="3.5"/>
+          </g>
+        </g>
+
+        <!-- iron ring handles -->
+        <g fill="none" stroke="url(#ironGrad)" stroke-width="5">
+          <circle cx="108" cy="330" r="16"/>
+          <circle cx="212" cy="330" r="16"/>
+        </g>
+
+        <!-- pointed transom window at top, glowing -->
+        <path d="M120 46 Q160 4 200 46 Q188 30 160 26 Q132 30 120 46 Z" fill="#1a3322" stroke="url(#ironGrad)" stroke-width="2"/>
       </g>
     </svg>
 
-    <div class="coin">
-      <div class="coin-rays"></div>
-      <div class="coin-ring"></div>
-      <div class="coin-inner">
-        <span class="coin-om">ॐ</span>
+    <!-- leaf + coin emblem, centred exactly on the door -->
+    <div class="leaf-coin-wrap">
+      <div class="mandala-ring"></div>
+      <div class="mandala-ring ring2"></div>
+
+      <svg class="leaf" viewBox="0 0 220 300" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#3fae63"/>
+            <stop offset="50%" stop-color="#1f6b38"/>
+            <stop offset="100%" stop-color="#0e3a1e"/>
+          </linearGradient>
+          <filter id="leafShadow" x="-50%" y="-50%" width="200%" height="200%">
+            <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#000" flood-opacity="0.5"/>
+          </filter>
+        </defs>
+        <g filter="url(#leafShadow)">
+          <path d="M110 8 C170 30 208 90 208 152 C208 226 165 285 110 292 C55 285 12 226 12 152 C12 90 50 30 110 8 Z"
+                fill="url(#leafGrad)" stroke="#ffe9a8" stroke-width="1.5" stroke-opacity="0.5"/>
+          <path d="M110 20 L110 280" stroke="#ffe9a8" stroke-width="1.5" fill="none" opacity="0.35"/>
+          <path d="M110 60 C140 75 158 95 168 118" stroke="#ffe9a8" stroke-width="1" fill="none" opacity="0.3"/>
+          <path d="M110 60 C80 75 62 95 52 118" stroke="#ffe9a8" stroke-width="1" fill="none" opacity="0.3"/>
+          <path d="M110 120 C145 136 165 158 176 184" stroke="#ffe9a8" stroke-width="1" fill="none" opacity="0.3"/>
+          <path d="M110 120 C75 136 55 158 44 184" stroke="#ffe9a8" stroke-width="1" fill="none" opacity="0.3"/>
+          <path d="M110 190 C138 203 154 220 162 240" stroke="#ffe9a8" stroke-width="1" fill="none" opacity="0.3"/>
+          <path d="M110 190 C82 203 66 220 58 240" stroke="#ffe9a8" stroke-width="1" fill="none" opacity="0.3"/>
+        </g>
+      </svg>
+
+      <div class="coin">
+        <div class="coin-rays"></div>
+        <div class="coin-ring"></div>
+        <div class="coin-inner">
+          <span class="coin-om">ॐ</span>
+        </div>
       </div>
     </div>
 
-    <p class="tap-hint">॥ दर्शनासाठी स्पर्श करा ॥</p>
     <div class="sparkle s1">✦</div>
     <div class="sparkle s2">✦</div>
     <div class="sparkle s3">✦</div>
     <div class="sparkle s4">✧</div>
   </div>
+
+  <p class="tap-hint">॥ दर्शनासाठी स्पर्श करा ॥</p>
 </section>
 
 <!-- flash overlay for cinematic reveal -->
