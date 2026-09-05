@@ -53,16 +53,16 @@ function startMusic() {
   if (!bgm || musicStarted) return;
   musicStarted = true;
   bgm.volume = 0.75;
-  bgm.play().catch(() => {
-    // autoplay was blocked or assets/song.mp3 hasn't been added yet — silently ignore
-  });
+  // the audio element autoplays muted from the very first (closed-door)
+  // screen — unmute it here now that we have a real user gesture (the door
+  // tap), so the song is heard right from that first screen's interaction
+  bgm.muted = false;
+  if (bgm.paused) {
+    bgm.play().catch(() => {
+      // assets/song.mp3 hasn't been added yet, or playback still blocked — silently ignore
+    });
+  }
 }
-
-// try to start the music the instant the very first (closed-door) screen is
-// shown; most browsers block this until a user gesture, so it will usually
-// only actually start once the door is tapped — see startMusic() call at the
-// top of openInvitation() below, which is the reliable trigger
-startMusic();
 
 if (muteBtn) {
   muteBtn.addEventListener('click', (e) => {
