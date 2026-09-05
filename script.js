@@ -46,23 +46,70 @@ if (ganpatiPhoto) {
 }
 
 // ---- background music ----
+// while the door is closed, only the first 7s of the track loop as a
+// preview; the moment the door is tapped, playback jumps to 8s and
+// continues normally (with the <audio loop> attribute) from there
 let musicStarted = false;
 let muted = false;
+let previewMode = true;
+const PREVIEW_LOOP_END = 7;
+const PLAY_FROM_ON_OPEN = 8;
+
+function enforcePreviewLoop() {
+  if (previewMode && bgm && bgm.currentTime >= PREVIEW_LOOP_END) {
+    bgm.currentTime = 0;
+  }
+}
+if (bgm) {
+  bgm.addEventListener('timeupdate', enforcePreviewLoop);
+}
+
+// called once the door is actually tapped open — hands playback off from
+// the 0-7s preview loop to the full track starting at 8s
+function commitFullTrack() {
+  if (!bgm) return;
+  previewMode = false;
+  bgm.currentTime = PLAY_FROM_ON_OPEN;
+}
 
 function startMusic() {
-  if (!bgm || musicStarted) return;
-  musicStarted = true;
-  bgm.volume = 0.75;
-  // the audio element autoplays muted from the very first (closed-door)
-  // screen — unmute it here now that we have a real user gesture (the door
-  // tap), so the song is heard right from that first screen's interaction
+  if (!bgm) return;
+  bgm.volume = 0.6;
   bgm.muted = false;
   if (bgm.paused) {
     bgm.play().catch(() => {
-      // assets/song.mp3 hasn't been added yet, or playback still blocked — silently ignore
+      // assets/song.mp3 hasn't been added yet, or playback is still blocked — silently ignore
     });
   }
+  musicStarted = true;
 }
+
+// try to play the song out loud the instant the very first screen loads —
+// many mobile browsers allow this; where it's blocked, fall back to a
+// silent autoplay so the track is already rolling, and unmute on the very
+// first tap anywhere on the page (the door is the only tappable thing on
+// this screen, so that tap is normally what unmutes it)
+(function attemptAutoplay() {
+  if (!bgm) return;
+  bgm.volume = 0.6;
+  const p = bgm.play();
+  if (p && typeof p.then === 'function') {
+    p.then(() => {
+      musicStarted = true;
+    }).catch(() => {
+      bgm.muted = true;
+      bgm.play().catch(() => {});
+    });
+  }
+})();
+
+document.addEventListener(
+  'pointerdown',
+  () => {
+    startMusic();
+  },
+  { once: true, passive: true }
+);
 
 if (muteBtn) {
   muteBtn.addEventListener('click', (e) => {
@@ -150,6 +197,8 @@ function openInvitation() {
   // this tap is the first real user gesture, so it's the reliable place
   // to start the background song (browsers block autoplay before this)
   startMusic();
+  // hand playback off from the 0-7s preview loop to the full track at 8s
+  commitFullTrack();
   // triggers the door's punch-zoom and the crack-of-light seam (see CSS)
   closedCard.classList.add('opening');
 

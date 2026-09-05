@@ -342,8 +342,8 @@
 <!-- Door creak sound effect: add assets/door-creak.mp3 to activate. Plays the instant the door is tapped. -->
 <audio id="doorSfx" src="assets/door-creak.mp3" preload="none"></audio>
 
-<!-- Background music: replace assets/song.mp3 with your track. Autoplays muted from the very first screen, then unmutes on the door tap (browsers require a gesture to allow audible sound). -->
-<audio id="bgm" src="assets/song.mp3" loop preload="auto" autoplay muted playsinline></audio>
+<!-- Background music: replace assets/song.mp3 with your track. script.js tries to play it audibly the instant the page loads; if the browser blocks that, it falls back to a silent autoplay that unmutes on the very first tap. -->
+<audio id="bgm" src="assets/song.mp3" loop preload="auto" autoplay playsinline></audio>
 
 <script src="script.js"></script>
 </body>
